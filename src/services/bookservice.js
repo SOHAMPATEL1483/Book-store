@@ -7,6 +7,11 @@ export const getAllBooks = async () => {
   return data;
 };
 
+export const getBookbyId = async (id) => {
+  const { data } = await axios.get(`${API_URL}/api/book/byId?id=${id}`);
+  return data;
+};
+
 export const getAllCategory = async () => {
   const { data } = await axios.get(`${API_URL}/api/category/all`);
   console.log(data);
@@ -15,6 +20,11 @@ export const getAllCategory = async () => {
 
 export const DeleteBookbyId = async (id) => {
   const { data } = await axios.delete(`${API_URL}/api/book?id=${id}`);
+  console.log(data);
+  return data;
+};
+export const DeleteCategorybyId = async (id) => {
+  const { data } = await axios.delete(`${API_URL}/api/category?id=${id} `);
   console.log(data);
   return data;
 };

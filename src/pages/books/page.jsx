@@ -11,6 +11,7 @@ import { DeleteBookbyId, getAllBooks } from "../../services/bookservice";
 import { useEffect, useState } from "react";
 import { Button } from "../../Components/ui/button";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const BookList = () => {
   const [products, setProducts] = useState([]);
@@ -53,17 +54,22 @@ const BookList = () => {
               <TableCell>{p.price}</TableCell>
               <TableCell>{p.category}</TableCell>
               <TableCell className="gap-2 flex">
-                <Button
-                  variant="outline"
-                  className="border-green-600 bg-green-50"
-                >
-                  Edit
-                </Button>
+                <Link to={`/books/add?id=${p.id}`}>
+                  <Button
+                    variant="outline"
+                    className="border-green-600 bg-green-50"
+                  >
+                    Edit
+                  </Button>
+                </Link>
                 <Button
                   variant="outline"
                   className="border-red-600 bg-red-50"
                   onClick={async () => {
                     await DeleteBookbyId(p.id);
+                    toast.success("successfully removed your book", {
+                      position: "bottom-right",
+                    });
                     setChange((prev) => !prev);
                   }}
                 >

@@ -8,6 +8,8 @@ import { useContext } from "react";
 import { AuthContext } from "../../App";
 import { Button } from "../../Components/ui/button";
 import { Input } from "../../Components/ui/input";
+import Cookies from "js-cookie";
+
 export default function Login({}) {
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ export default function Login({}) {
           );
           toast("success", { position: "bottom-right" });
           SetUser(data.result);
-          console.log(user);
+          Cookies.set("id", `${data.result.id}`);
           navigate("/");
         } catch (error) {
           if (error instanceof AxiosError) {

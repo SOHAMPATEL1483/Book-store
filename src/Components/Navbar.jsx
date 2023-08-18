@@ -4,33 +4,48 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useContext } from "react";
 import { AuthContext } from "../App";
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [user, SetUser] = useContext(AuthContext);
   return (
     <>
       <div className="w-full font-poppins">
-        <div className="h-3 bg-red-400" />
-
-        <div className="flex justify-between max-w-6xl mx-auto py-4 align-middle">
+        <div className="flex justify-between max-w-6xl mx-auto py-4 ">
           <div className="font-bold text-2xl">
-            <Link to="/"> Books </Link>
+            <Link to="/"> Bookstore </Link>
           </div>
-          <div className="flex gap-4">
-            {user.email ? (
-              <>
-                <Link to="/books"> Books </Link>
-                <Link to="/category"> Category </Link>
-                <Link to="/about"> About </Link>
-              </>
-            ) : (
-              <>
-                <Link to="/register"> Register </Link>
-                <Link to="/login"> Login </Link>
-                <Link to="/about"> About </Link>
-              </>
-            )}
-          </div>
+          {user.email ? (
+            <div className="flex gap-4 align-middle">
+              <p className="my-auto text-red-500">Hi,{user.firstName}</p>
+              <Link className="my-auto" to="/users">
+                Users
+              </Link>
+              <Link className="my-auto" to="/books">
+                Books
+              </Link>
+              <Link className="my-auto" to="/category">
+                Category
+              </Link>
+              <Link className="my-auto" to="/cart">
+                Cart
+              </Link>
+              <Button
+                onClick={() => {
+                  Cookies.remove("id");
+                  SetUser({});
+                }}
+              >
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <div className="flex gap-4 align-middle">
+              <Link to="/register"> Register </Link>
+              <Link to="/login"> Login </Link>
+              <Link to="/about"> About </Link>
+            </div>
+          )}
         </div>
         <div className="w-full text-center flex gap-2 justify-center bg-gray-100 py-5 align-middle">
           <Input
